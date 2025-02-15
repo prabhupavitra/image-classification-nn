@@ -8,49 +8,6 @@ from sklearn.model_selection import train_test_split
 
 from image_class.common.image_utils import extract_label
 
-# def build_dataset(image_path_list,
-#                   random_seed,
-#                   test_size=0.2,
-#                   batch_size = 32,
-#                   data_augment=False):
-#     images = []
-#     labels = []
-    
-#     label = [extract_label(path) for path in image_path_list] 
-    
-#     classes = set(label)
-#     class_mapping = {class_name: idx for idx, class_name in enumerate(classes)}
-#     labels.append(class_mapping[label]) 
-#     # Load images into memory and preprocess
-  
-#     for image_path in image_path_list:
-#         image = load_img(image_path,target_size=(224, 224))
-#         images.append(image)
-    
-#     images = np.array(images)
-#     labels = np.array(labels) 
-#     # Shuffle data (important before splitting)
-#     images, labels = shuffle(images, labels, random_state=random_seed)
-    
-#     # Split data into train, validation, and test sets (80% train, 10% validation, 10% test)
-#     X_train, X_temp, y_train, y_temp = train_test_split(images, labels, test_size=test_size, random_state=random_seed)
-#     X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=random_seed)
-
-#     if data_augment:
-#         image_aug(X_train, y_train, X_val, y_val, X_test, y_test)
-#     else: 
-#         # No data augmentation (just rescale the images)
-#         train_datagen = ImageDataGenerator(rescale=1./255)  # Only rescaling
-        
-#         val_test_datagen = ImageDataGenerator(rescale=1./255)
-        
-#         # Flow data from memory (since data is already loaded in memory)
-#         train_generator = train_datagen.flow(X_train, y_train, batch_size=batch_size)
-#         validation_generator = val_test_datagen.flow(X_val, y_val, batch_size=batch_size)
-#         test_generator = val_test_datagen.flow(X_test, y_test, batch_size=batch_size)
-
-#     return train_generator,validation_generator, test_generator, classes
-
 def image_aug():
     
     train_datagen = ImageDataGenerator(
