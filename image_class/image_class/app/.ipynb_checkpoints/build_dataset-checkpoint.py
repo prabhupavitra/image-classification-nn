@@ -102,8 +102,7 @@ def build_dataset(image_path_list,
     class_names = [extract_label(path) for path in image_path_list] 
     classes = sorted(set(class_names))
     # Create a mapping of class names (strings) to integers
-    class_mapping = {class_name: idx for idx, class_name in enumerate(class_names)}
-    
+    class_mapping = {class_name: idx for idx, class_name in enumerate(classes)}
     # Load images into memory and preprocess
     images = []
     labels = []
@@ -112,12 +111,13 @@ def build_dataset(image_path_list,
         image = np.array(image)  # Convert image to numpy array
         images.append(image)
         
-        # Extract label (assuming extract_label function returns the class name as a string)
-        label = extract_label(image_path)  
-        labels.append(class_mapping[label])  # Convert label to integer based on class_mapping
+    # Extract label (assuming extract_label function returns the class name as a string)
+    label = extract_label(image_path)  
+    labels.append(class_mapping[label])  # Convert label to integer based on class_mapping
     
     images = np.array(images)
-    labels = np.array(labels)  # Now labels are integers corresponding to class indices
+    labels = [class_mapping[extract_label(path)] for path in image_path_list]
+    # labels = np.array(labels)  # Now labels are integers corresponding to class indices
 
     # Shuffle data (important before splitting)
     images, labels = shuffle(images, labels, random_state=random_seed)
